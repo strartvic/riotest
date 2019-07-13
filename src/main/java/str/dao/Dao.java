@@ -3,10 +3,12 @@ package str.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.springframework.stereotype.Repository;
 
 import str.config.HibernateUtil;
 import str.model.CreditOrg;
 
+@Repository
 public class Dao implements IDao {
 
 	@Override

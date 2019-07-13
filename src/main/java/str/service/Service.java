@@ -2,35 +2,43 @@ package str.service;
 
 import java.util.List;
 
-import str.dao.Dao;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import str.dao.IDao;
 import str.model.CreditOrg;
 
+@org.springframework.stereotype.Service
 public class Service implements IService {
 
-	private Dao orgCrud = new Dao();
+	private IDao dao;
+
+	@Autowired
+	public void setDao(IDao dao) {
+		this.dao = dao;
+	}
 
 	@Override
 	public List<CreditOrg> getAll() {
-		return orgCrud.getAll();
+		return dao.getAll();
 	}
 
 	@Override
 	public void save(Object obj) {
-		orgCrud.save(obj);
+		dao.save(obj);
 	}
 
 	@Override
 	public void update(Object obj) {
-		orgCrud.update(obj);
+		dao.update(obj);
 	}
 
 	@Override
 	public void delete(Object obj) {
-		orgCrud.delete(obj);
+		dao.delete(obj);
 	}
 
 	@Override
 	public CreditOrg getById(Integer id) {
-		return orgCrud.getById(id);
+		return dao.getById(id);
 	}
 }
