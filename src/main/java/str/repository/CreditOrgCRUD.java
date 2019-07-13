@@ -6,6 +6,7 @@ import org.hibernate.Session;
 
 import str.config.HibernateUtil;
 import str.model.CreditOrg;
+import str.model.Indicator;
 
 public class CreditOrgCRUD {
 
@@ -15,6 +16,14 @@ public class CreditOrgCRUD {
 	 * @param org организация
 	 */
 	public void save(CreditOrg org) {
+		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
+		session.beginTransaction();
+		session.save(org); // пользуемся ее методами
+		session.flush();
+		session.close();
+	}
+
+	public void save(Indicator org) {
 		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
 		session.beginTransaction();
 		session.save(org); // пользуемся ее методами
@@ -53,7 +62,7 @@ public class CreditOrgCRUD {
 	 */
 	public CreditOrg getById(Integer id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		CreditOrg pos = session.get(CreditOrg.class, id);
-		return pos;
+		CreditOrg org = session.get(CreditOrg.class, id);
+		return org;
 	}
 }

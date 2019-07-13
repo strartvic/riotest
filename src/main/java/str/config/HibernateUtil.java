@@ -11,6 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 
 import str.model.CreditOrg;
+import str.model.Indicator;
 
 public class HibernateUtil {
 	private static StandardServiceRegistry registry;
@@ -38,6 +39,7 @@ public class HibernateUtil {
 
 				MetadataSources sources = new MetadataSources(registry);
 				sources.addAnnotatedClass(CreditOrg.class);
+				sources.addAnnotatedClass(Indicator.class);
 				Metadata metadata = sources.getMetadataBuilder().build();
 
 				sessionFactory = metadata.getSessionFactoryBuilder().build();

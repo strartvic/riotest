@@ -3,6 +3,7 @@ package str.service;
 import java.util.List;
 
 import str.model.CreditOrg;
+import str.model.Indicator;
 import str.repository.CreditOrgCRUD;
 
 public class Service {
@@ -18,5 +19,9 @@ public class Service {
 
 	public void save(CreditOrg org) {
 		orgCrud.save(org);
+	}
+
+	public List<Indicator> getIndicators(CreditOrg org) {
+		return org.getIndicators();
 	}
 }

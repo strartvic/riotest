@@ -15,7 +15,10 @@ public class MainController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMainMenu(Model model) {
-		service.save(new CreditOrg(1, "Test"));
+		CreditOrg org = new CreditOrg(1, "Test");
+		service.save(org);
+		// org.add(new Indicator(10));
+
 		// model.addAttribute("points", service.getAll());
 		return "main";
 	}

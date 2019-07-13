@@ -1,7 +1,10 @@
 package str.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class CreditOrg {
@@ -16,6 +19,9 @@ public class CreditOrg {
 	 * Наименование
 	 */
 	private String name;
+
+	@OneToMany(mappedBy = "creditOrg")
+	private List<Indicator> indicators;
 
 	/**
 	 * Пустой конструктор
@@ -49,6 +55,27 @@ public class CreditOrg {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Indicator> getIndicators() {
+		return indicators;
+	}
+
+	public void setIndicators(List<Indicator> indicators) {
+		this.indicators = indicators;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public void add(Indicator indicator) {
+		indicator.setCreditOrg(this);
+		indicators.add(indicator);
+	}
+
+	public void remove(Indicator indicator) {
+		indicators.remove(indicator);
 	}
 
 }
