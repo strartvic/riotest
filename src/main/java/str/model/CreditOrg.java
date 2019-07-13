@@ -1,24 +1,20 @@
 package str.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "creditOrg")
 public class CreditOrg {
 
 	/**
 	 * Уникальный номер
 	 */
 	@Id
-	private int id;
+	private Integer id;
 
 	/**
 	 * Наименование
 	 */
-	@Column
 	private String name;
 
 	/**

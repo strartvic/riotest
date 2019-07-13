@@ -27,7 +27,7 @@ public class HibernateUtil {
 				// DIALECT и кусок URL легко гуглятся под любую базу
 				Map<String, String> settings = new HashMap<>();
 				settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
-				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/carrental");
+				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/riotest");
 				settings.put(Environment.USER, "root");
 				settings.put(Environment.PASS, "1111");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
