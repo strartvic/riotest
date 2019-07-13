@@ -31,6 +31,13 @@ public class Indicator {
 	@JoinColumn(name = "credit_org_id")
 	private CreditOrg creditOrg;
 
+	/**
+	 * Счет
+	 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "bill_id")
+	private Bill bill;
+
 	public Indicator() {
 
 	}
@@ -59,6 +66,14 @@ public class Indicator {
 
 	public void setCreditOrg(CreditOrg creditOrg) {
 		this.creditOrg = creditOrg;
+	}
+
+	public Bill getBill() {
+		return bill;
+	}
+
+	public void setBill(Bill bill) {
+		this.bill = bill;
 	}
 
 }
