@@ -5,54 +5,36 @@ import java.util.List;
 import org.hibernate.Session;
 
 import str.config.HibernateUtil;
-import str.model.Bill;
 import str.model.CreditOrg;
 
 public class Dao implements IDao {
 
 	@Override
-	public void save(CreditOrg org) {
+	public void save(Object obj) {
 		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
 		session.beginTransaction();
-		session.save(org); // пользуемся ее методами
+		session.save(obj); // пользуемся ее методами
 		session.flush();
 		session.close();
 	}
 
-	public void save(Bill bill) {
-		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
-		session.beginTransaction();
-		session.save(bill); // пользуемся ее методами
-		session.flush();
-		session.close();
-	}
-
-	public void delete(CreditOrg org) {
+	@Override
+	public void delete(Object obj) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
-		session.delete(org);
+		session.delete(obj);
 		session.flush();
 		session.close();
 	}
 
-	/**
-	 * Получить все организации
-	 * 
-	 * @return организации
-	 */
+	@Override
 	public List<CreditOrg> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<CreditOrg> orgs = (List<CreditOrg>) session.createQuery("From " + CreditOrg.class.toString())
-				.getResultList();
+		List<CreditOrg> orgs = (List<CreditOrg>) session.createQuery("From CreditOrg").getResultList();
 		return orgs;
 	}
 
-	/**
-	 * Получить организацию по id
-	 * 
-	 * @param id уник номер
-	 * @return организация
-	 */
+	@Override
 	public CreditOrg getById(Integer id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		CreditOrg org = session.get(CreditOrg.class, id);
@@ -60,7 +42,7 @@ public class Dao implements IDao {
 	}
 
 	@Override
-	public void update(CreditOrg org) {
+	public void update(Object org) {
 		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
 		session.beginTransaction();
 		session.merge(org); // пользуемся ее методами

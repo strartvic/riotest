@@ -5,13 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import str.model.Bill;
+import str.model.CreditOrg;
+import str.model.Indicator;
+import str.service.IService;
 import str.service.Service;
 
 @Controller
 public class MainController {
 
-	private Service service = new Service();
+	private IService service = new Service();
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String getMainMenu(Model model) {
@@ -19,7 +21,9 @@ public class MainController {
 		 * Indicator ind = new Indicator(2000); Bill bill = new Bill(2, "Российская");
 		 * CreditOrg org = service.getAll().get(0); org.add(ind); service.save(bill);
 		 */
-		service.save(new Bill(16, "sfdsfasdsasdfds"));
+		CreditOrg org = service.getAll().get(0);
+		org.add(new Indicator(15000));
+		service.update(org);
 		// model.addAttribute("points", service.getAll());
 		return "main";
 	}

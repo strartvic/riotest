@@ -1,10 +1,10 @@
-package str.dao;
+package str.service;
 
 import java.util.List;
 
 import str.model.CreditOrg;
 
-public interface IDao {
+public interface IService {
 
 	/**
 	 * Сохранить объект
@@ -41,5 +41,4 @@ public interface IDao {
 	 * @return организация
 	 */
 	public CreditOrg getById(Integer id);
-
 }
