@@ -2,7 +2,10 @@ package str.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -13,6 +16,7 @@ public class CreditOrg {
 	 * Уникальный номер
 	 */
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	/**
@@ -20,7 +24,7 @@ public class CreditOrg {
 	 */
 	private String name;
 
-	@OneToMany(mappedBy = "creditOrg")
+	@OneToMany(mappedBy = "creditOrg", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Indicator> indicators;
 
 	/**
@@ -71,7 +75,7 @@ public class CreditOrg {
 
 	public void add(Indicator indicator) {
 		indicator.setCreditOrg(this);
-		indicators.add(indicator);
+		this.indicators.add(indicator);
 	}
 
 	public void remove(Indicator indicator) {

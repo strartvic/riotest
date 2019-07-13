@@ -51,7 +51,8 @@ public class CreditOrgCRUD {
 	 */
 	public List<CreditOrg> getAll() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		return session.createCriteria(CreditOrg.class).list();
+		List<CreditOrg> orgs = (List<CreditOrg>) session.createQuery("From CreditOrg").getResultList();
+		return orgs;
 	}
 
 	/**
@@ -64,5 +65,13 @@ public class CreditOrgCRUD {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		CreditOrg org = session.get(CreditOrg.class, id);
 		return org;
+	}
+
+	public void update(CreditOrg org) {
+		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
+		session.beginTransaction();
+		session.merge(org); // пользуемся ее методами
+		session.flush();
+		session.close();
 	}
 }

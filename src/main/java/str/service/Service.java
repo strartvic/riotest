@@ -21,7 +21,15 @@ public class Service {
 		orgCrud.save(org);
 	}
 
+	public void save(Indicator ind) {
+		orgCrud.save(ind);
+	}
+
 	public List<Indicator> getIndicators(CreditOrg org) {
 		return org.getIndicators();
+	}
+
+	public void update(CreditOrg org) {
+		orgCrud.update(org);
 	}
 }
