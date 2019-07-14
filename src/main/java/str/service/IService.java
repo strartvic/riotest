@@ -40,5 +40,5 @@ public interface IService {
 	 * @param id уник номер
 	 * @return организация
 	 */
-	public CreditOrg getById(Integer id);
+	CreditOrg getById(Integer id);
 }

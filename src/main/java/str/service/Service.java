@@ -41,4 +41,5 @@ public class Service implements IService {
 	public CreditOrg getById(Integer id) {
 		return dao.getById(id);
 	}
+
 }
