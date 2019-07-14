@@ -2,6 +2,7 @@ package str.service;
 
 import java.util.List;
 
+import str.model.Bill;
 import str.model.CreditOrg;
 
 public interface IService {
@@ -41,4 +42,15 @@ public interface IService {
 	 * @return организация
 	 */
 	CreditOrg getById(Integer id);
+
+	List<Bill> getAllBills();
+
+	/**
+	 * Сохранить данныие из файлов
+	 * 
+	 * @param path1 путь1
+	 * @param path2 путь2
+	 * @param path3 путь3
+	 */
+	void save(String path1, String path2, String path3);
 }

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import str.config.HibernateUtil;
+import str.model.Bill;
 import str.model.CreditOrg;
 
 @Repository
@@ -37,6 +38,13 @@ public class Dao implements IDao {
 	}
 
 	@Override
+	public List<Bill> getAllBills() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<Bill> orgs = (List<Bill>) session.createQuery("From Bill").getResultList();
+		return orgs;
+	}
+
+	@Override
 	public CreditOrg getById(Integer id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		CreditOrg org = session.get(CreditOrg.class, id);
@@ -50,5 +58,12 @@ public class Dao implements IDao {
 		session.merge(org); // пользуемся ее методами
 		session.flush();
 		session.close();
+	}
+
+	@Override
+	public Bill getBill(Integer id) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Bill bill = session.get(Bill.class, id);
+		return bill;
 	}
 }

@@ -52,6 +52,26 @@ public class Indicator {
 		this.incomingBalanceRub = incomingBalanceRub;
 	}
 
+	/**
+	 * Конструктор
+	 * 
+	 * @param properties свойства в виде строках
+	 * @throws Exception
+	 */
+	public Indicator(String[] properties) throws Exception {
+		if (properties.length > 1) {
+			throw new Exception("Ошибка создания объекта организации. Неверный формат входных данных!");
+		}
+
+		for (int i = 0; i < properties.length; i++) {
+			switch (i) {
+			case 0:
+				id = Integer.parseInt(properties[i]);
+				break;
+			}
+		}
+	}
+
 	public int getIncomingBalanceRub() {
 		return incomingBalanceRub;
 	}

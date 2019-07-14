@@ -2,6 +2,7 @@ package str.dao;
 
 import java.util.List;
 
+import str.model.Bill;
 import str.model.CreditOrg;
 
 public interface IDao {
@@ -40,6 +41,16 @@ public interface IDao {
 	 * @param id уник номер
 	 * @return организация
 	 */
-	public CreditOrg getById(Integer id);
+	CreditOrg getById(Integer id);
+
+	/**
+	 * Получить счет из базы
+	 * 
+	 * @param id номер
+	 * @return счет
+	 */
+	Bill getBill(Integer id);
+
+	List<Bill> getAllBills();
 
 }

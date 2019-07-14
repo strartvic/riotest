@@ -73,7 +73,7 @@ public class Report {
 				CellType type = cell.getCellType();
 				switch (type.toString()) {
 				case "NUMERIC":
-					cells.add(Double.toString(cell.getNumericCellValue()));
+					cells.add(Integer.toString((int) cell.getNumericCellValue()));
 					break;
 				case "STRING":
 					cells.add(cell.getStringCellValue());

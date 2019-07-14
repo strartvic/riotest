@@ -47,6 +47,29 @@ public class Bill {
 		this.name = name;
 	}
 
+	/**
+	 * Конструктор
+	 * 
+	 * @param properties свойства в виде строках
+	 * @throws Exception
+	 */
+	public Bill(String[] properties) throws Exception {
+		if (properties.length > 2) {
+			throw new Exception("Ошибка создания объекта организации. Неверный формат входных данных!");
+		}
+
+		for (int i = 0; i < properties.length; i++) {
+			switch (i) {
+			case 0:
+				id = Integer.parseInt(properties[i]);
+				break;
+			case 1:
+				name = properties[i];
+				break;
+			}
+		}
+	}
+
 	public int getId() {
 		return id;
 	}
