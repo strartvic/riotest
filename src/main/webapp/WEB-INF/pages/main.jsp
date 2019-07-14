@@ -24,7 +24,7 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-    <h1>Добро пожаловать на сайт проката автомобилей!</h1>
+    <h1>${name}</h1>
 </body>
 
 <div>
@@ -33,6 +33,10 @@ tr:nth-child(even) {
          <th>Точки проката</th>
          <th>Действия</th>
       </tr>
+         <tr>
+             <td><a href="${pageContext.request.contextPath}/point-page/${point.name}">${bill.name}</a></td>
+             <td><a href="${pageContext.request.contextPath}/delete-point/${point.name}">point.incomingBalanceRub</a></td>
+         </tr>     
    </table>
 </div>
  

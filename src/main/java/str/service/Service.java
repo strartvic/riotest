@@ -2,6 +2,7 @@ package str.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import str.dao.IDao;
 import str.model.Bill;
 import str.model.CreditOrg;
+import str.model.Indicator;
 import str.model.Report;
 
 @org.springframework.stereotype.Service
@@ -88,7 +90,10 @@ public class Service implements IService {
 			// Сохранение показателей
 			for (String[] props : data3) {
 				try {
-					dao.save(new Bill(props));
+					Indicator ind = new Indicator(Arrays.copyOfRange(props, 2, props.length));
+					ind.setCreditOrg(dao.getById(Integer.parseInt(props[0])));
+					ind.setBill(dao.getBill(Integer.parseInt(props[1])));
+					dao.save(ind);
 				} catch (Exception e) {
 					// e.printStackTrace();
 				}
@@ -99,5 +104,10 @@ public class Service implements IService {
 			System.out.print("Ошибка загрузки данных!");
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public Bill getBill(Integer id) {
+		return dao.getBill(id);
 	}
 }

@@ -53,4 +53,6 @@ public interface IService {
 	 * @param path3 путь3
 	 */
 	void save(String path1, String path2, String path3);
+
+	Bill getBill(Integer id);
 }

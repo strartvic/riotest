@@ -5,7 +5,7 @@
   <artifactId>riatest</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>riatest Maven Webapp</name>
+  <name>riotest Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
@@ -61,6 +61,6 @@
 
   </dependencies> 
   <build>
-    <finalName>riatest</finalName>
+    <finalName>riotest</finalName>
   </build>
 </project>
