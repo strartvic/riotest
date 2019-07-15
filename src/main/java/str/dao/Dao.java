@@ -6,14 +6,12 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import str.config.HibernateUtil;
-import str.model.Bill;
-import str.model.CreditOrg;
 
 @Repository
 public class Dao implements IDao {
 
 	@Override
-	public void save(Object obj) {
+	public <T> void save(T obj) {
 		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
 		session.beginTransaction();
 		session.save(obj); // пользуемся ее методами
@@ -22,7 +20,7 @@ public class Dao implements IDao {
 	}
 
 	@Override
-	public void delete(Object obj) {
+	public <T> void delete(T obj) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		session.beginTransaction();
 		session.delete(obj);
@@ -31,39 +29,26 @@ public class Dao implements IDao {
 	}
 
 	@Override
-	public List<CreditOrg> getAll() {
+	public <T> List<T> getAll(Class<?> T) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<CreditOrg> orgs = (List<CreditOrg>) session.createQuery("From CreditOrg").getResultList();
-		return orgs;
+		String str = T.getSimpleName();
+		List<T> obj = (List<T>) session.createQuery("From " + T.getSimpleName()).getResultList();
+		return obj;
 	}
 
 	@Override
-	public List<Bill> getAllBills() {
+	public <T> T getById(Class<?> T, Integer id) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		List<Bill> orgs = (List<Bill>) session.createQuery("From Bill").getResultList();
-		return orgs;
+		T obj = (T) session.get(T, id);
+		return obj;
 	}
 
 	@Override
-	public CreditOrg getById(Integer id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		CreditOrg org = session.get(CreditOrg.class, id);
-		return org;
-	}
-
-	@Override
-	public void update(Object org) {
+	public <T> void update(T obj) {
 		Session session = HibernateUtil.getSessionFactory().openSession(); // открываем сессию
 		session.beginTransaction();
-		session.merge(org); // пользуемся ее методами
+		session.merge(obj); // пользуемся ее методами
 		session.flush();
 		session.close();
-	}
-
-	@Override
-	public Bill getBill(Integer id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Bill bill = session.get(Bill.class, id);
-		return bill;
 	}
 }

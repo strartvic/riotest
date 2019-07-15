@@ -2,9 +2,6 @@ package str.service;
 
 import java.util.List;
 
-import str.model.Bill;
-import str.model.CreditOrg;
-
 public interface IService {
 
 	/**
@@ -12,38 +9,36 @@ public interface IService {
 	 * 
 	 * @param obj объект
 	 */
-	void save(Object obj);
+	<T> void save(T obj);
 
 	/**
 	 * Удалить
 	 * 
 	 * @param obj объект
 	 */
-	void delete(Object obj);
+	<T> void delete(T obj);
 
 	/**
 	 * Обновить
 	 * 
-	 * @param org объект
+	 * @param obj объект
 	 */
-	void update(Object org);
+	<T> void update(T obj);
 
 	/**
-	 * Получить все организации
+	 * Получить все объекты
 	 * 
 	 * @return организации
 	 */
-	List<CreditOrg> getAll();
+	<T> List<T> getAll(Class<?> T);
 
 	/**
-	 * Получить организацию по id
+	 * Получить объект по id
 	 * 
 	 * @param id уник номер
-	 * @return организация
+	 * @return объект
 	 */
-	CreditOrg getById(Integer id);
-
-	List<Bill> getAllBills();
+	<T> T getById(Class<?> T, Integer id);
 
 	/**
 	 * Сохранить данныие из файлов
@@ -53,6 +48,4 @@ public interface IService {
 	 * @param path3 путь3
 	 */
 	void save(String path1, String path2, String path3);
-
-	Bill getBill(Integer id);
 }

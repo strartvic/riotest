@@ -24,33 +24,28 @@ public class Service implements IService {
 	}
 
 	@Override
-	public List<CreditOrg> getAll() {
-		return dao.getAll();
+	public <T> List<T> getAll(Class<?> T) {
+		return dao.getAll(T);
 	}
 
 	@Override
-	public void save(Object obj) {
+	public <T> void save(T obj) {
 		dao.save(obj);
 	}
 
 	@Override
-	public void update(Object obj) {
+	public <T> void update(T obj) {
 		dao.update(obj);
 	}
 
 	@Override
-	public void delete(Object obj) {
+	public <T> void delete(T obj) {
 		dao.delete(obj);
 	}
 
 	@Override
-	public CreditOrg getById(Integer id) {
-		return dao.getById(id);
-	}
-
-	@Override
-	public List<Bill> getAllBills() {
-		return dao.getAllBills();
+	public <T> T getById(Class<?> T, Integer id) {
+		return dao.getById(T, id);
 	}
 
 	@Override
@@ -91,8 +86,8 @@ public class Service implements IService {
 			for (String[] props : data3) {
 				try {
 					Indicator ind = new Indicator(Arrays.copyOfRange(props, 2, props.length));
-					ind.setCreditOrg(dao.getById(Integer.parseInt(props[0])));
-					ind.setBill(dao.getBill(Integer.parseInt(props[1])));
+					// ind.setCreditOrg(dao.getById(Integer.parseInt(props[0])));
+					// ind.setBill(dao.getBill(Integer.parseInt(props[1])));
 					dao.save(ind);
 				} catch (Exception e) {
 					// e.printStackTrace();
@@ -104,10 +99,5 @@ public class Service implements IService {
 			System.out.print("Ошибка загрузки данных!");
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public Bill getBill(Integer id) {
-		return dao.getBill(id);
 	}
 }

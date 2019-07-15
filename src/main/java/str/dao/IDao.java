@@ -2,9 +2,6 @@ package str.dao;
 
 import java.util.List;
 
-import str.model.Bill;
-import str.model.CreditOrg;
-
 public interface IDao {
 
 	/**
@@ -12,28 +9,28 @@ public interface IDao {
 	 * 
 	 * @param obj объект
 	 */
-	void save(Object obj);
+	<T> void save(T obj);
 
 	/**
 	 * Удалить
 	 * 
 	 * @param obj объект
 	 */
-	void delete(Object obj);
+	<T> void delete(T obj);
 
 	/**
 	 * Обновить
 	 * 
 	 * @param org объект
 	 */
-	void update(Object org);
+	<T> void update(T org);
 
 	/**
 	 * Получить все организации
 	 * 
 	 * @return организации
 	 */
-	List<CreditOrg> getAll();
+	<T> List<T> getAll(Class<?> T);
 
 	/**
 	 * Получить организацию по id
@@ -41,16 +38,6 @@ public interface IDao {
 	 * @param id уник номер
 	 * @return организация
 	 */
-	CreditOrg getById(Integer id);
-
-	/**
-	 * Получить счет из базы
-	 * 
-	 * @param id номер
-	 * @return счет
-	 */
-	Bill getBill(Integer id);
-
-	List<Bill> getAllBills();
+	<T> T getById(Class<?> T, Integer id);
 
 }

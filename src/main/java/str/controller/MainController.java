@@ -1,11 +1,14 @@
 package str.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import str.model.CreditOrg;
 import str.service.IService;
 
 @Controller
@@ -22,13 +25,11 @@ public class MainController {
 	public ModelAndView getMainMenu() {
 		// service.save("D:\\Work\\test.xls", "D:\\Work\\test2.xls",
 		// "D:\\Work\\test3.xls");
-		// Bill bill = service.getBill(10605);
-		// Indicator ind = bill.getIndicators().get(0);
-
+		List<CreditOrg> orgs = service.getAll(CreditOrg.class);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("main");
 		modelAndView.addObject("name", "Главная страница");
-		modelAndView.addObject("bill", service.getBill(10605));
+		modelAndView.addObject("bill", service.getById(CreditOrg.class, 1));
 		return modelAndView;
 	}
 }
