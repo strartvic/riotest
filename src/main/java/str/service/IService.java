@@ -1,6 +1,10 @@
 package str.service;
 
+import java.util.LinkedList;
 import java.util.List;
+
+import str.model.Bill;
+import str.model.CreditOrg;
 
 public interface IService {
 
@@ -48,4 +52,6 @@ public interface IService {
 	 * @param path3 путь3
 	 */
 	void save(String path1, String path2, String path3);
+
+	void printReport(String dirPath, LinkedList<CreditOrg> orgs, LinkedList<Bill> bills);
 }

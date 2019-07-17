@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -26,8 +27,14 @@ public class Report {
 	 */
 	private HSSFWorkbook workbook;
 
-	public Report(File file) throws IOException {
-		this.file = file;
+	public Report(String filePath) throws IOException {
+		this.file = new File(filePath);
+		if (!file.exists()) {
+			file.createNewFile();
+			workbook = new HSSFWorkbook();
+			workbook.createSheet();
+		}
+
 		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(file));
 		workbook = new HSSFWorkbook(fs);
 	}
@@ -59,9 +66,9 @@ public class Report {
 	 * 
 	 * @return значения строк
 	 */
-	public List<String[]> getRows() {
+	public LinkedList<String[]> getRows() {
 		Iterator<Row> iter = workbook.getSheetAt(0).rowIterator();
-		List<String[]> rows = new ArrayList<String[]>();
+		LinkedList<String[]> rows = new LinkedList<String[]>();
 
 		iter.next();
 		while (iter.hasNext()) {

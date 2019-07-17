@@ -24,11 +24,14 @@ public class ReportX {
 	 */
 	private XSSFWorkbook workbook;
 
-	public ReportX(File file) throws IOException {
-		this.file = file;
+	public ReportX(String filePath) throws IOException {
+		this.file = new File(filePath);
 		if (!file.exists()) {
-			throw new IOException();
+			file.createNewFile();
+			workbook = new XSSFWorkbook();
+			workbook.createSheet();
 		}
+
 		FileInputStream is = new FileInputStream(file);
 		workbook = new XSSFWorkbook(is);
 	}
@@ -63,6 +66,10 @@ public class ReportX {
 		}
 
 		return rows;
+	}
+
+	public XSSFWorkbook getWorkbook() {
+		return workbook;
 	}
 
 }
