@@ -45,13 +45,11 @@ public interface IService {
 	<T> T getById(Class<?> T, Integer id);
 
 	/**
-	 * Сохранить данныие из файлов
+	 * Сохранить данные в БД из архива
 	 * 
-	 * @param path1 путь1
-	 * @param path2 путь2
-	 * @param path3 путь3
+	 * @param zipFile путь до архива
 	 */
-	void save(String path1, String path2, String path3);
+	void save(String zipFile);
 
 	void printReport(String dirPath, LinkedList<CreditOrg> orgs, LinkedList<Bill> bills);
 }

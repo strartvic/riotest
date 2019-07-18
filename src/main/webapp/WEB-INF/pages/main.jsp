@@ -33,10 +33,12 @@ tr:nth-child(even) {
          <th>Точки проката</th>
          <th>Действия</th>
       </tr>
+      <c:forEach  items="${orgs}" var ="org">
          <tr>
-             <td><a href="${pageContext.request.contextPath}/point-page/${point.name}">${bill.name}</a></td>
-             <td><a href="${pageContext.request.contextPath}/delete-point/${point.name}">point.incomingBalanceRub</a></td>
-         </tr>     
+             <td><a href="${pageContext.request.contextPath}/point-page/${point.name}">${org.name}</a></td>
+             <td><a href="${pageContext.request.contextPath}/delete-point/${point.name}">Удалить</a></td>
+         </tr>
+      </c:forEach> 
    </table>
 </div>
  

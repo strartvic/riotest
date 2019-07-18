@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -18,6 +19,7 @@ import str.model.Bill;
 import str.model.CreditOrg;
 import str.model.Indicator;
 import str.report.Report;
+import str.report.ReportFactory;
 
 @org.springframework.stereotype.Service
 public class Service implements IService {
@@ -55,49 +57,78 @@ public class Service implements IService {
 	}
 
 	@Override
-	public void save(String path1, String path2, String path3) {
-		try {
-			LinkedList<String[]> data1 = new Report(path1).getRows();
-			LinkedList<String[]> data2 = new Report(path2).getRows();
-			LinkedList<String[]> data3 = new Report(path3).getRows();
-
-			// Сохранение организаций
-			for (String[] props : data1) {
-				try {
-					dao.save(new CreditOrg(props));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			System.out.print("Завершена передача организаций!");
-
-			// Сохранение счетов
-			for (String[] props : data2) {
-				try {
-					dao.save(new Bill(props));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			System.out.print("Завершена передача счетов!");
-
-			// Сохранение показателей
-			for (String[] props : data3) {
-				try {
-					Indicator ind = new Indicator(Arrays.copyOfRange(props, 2, props.length));
-					ind.setCreditOrg(dao.getById(CreditOrg.class, Integer.parseInt(props[0])));
-					ind.setBill(dao.getById(Bill.class, Integer.parseInt(props[1])));
-					dao.save(ind);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			System.out.print("Завершена передача показателей!");
-
-		} catch (IOException e) {
-			System.out.print("Ошибка загрузки данных!");
-			e.printStackTrace();
+	public void save(String zipFile) {
+		File[] files = unpackZip(zipFile, zipFile.substring(0, zipFile.lastIndexOf("\\")));
+		if (files == null) {
+			return;
 		}
+
+		LinkedList<String[]> orgData = getData(getFile(files, "092018N1"));
+		LinkedList<String[]> billData = getData(getFile(files, "NAMES"));
+		LinkedList<String[]> indData = getData(getFile(files, "092018B1"));
+
+		// Сохранение организаций
+		for (String[] props : orgData) {
+			try {
+				dao.save(new CreditOrg(props));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.print("Завершена передача организаций!");
+
+		// Сохранение счетов
+		for (String[] props : billData) {
+			try {
+				dao.save(new Bill(props));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.print("Завершена передача счетов!");
+
+		// Сохранение показателей
+		for (String[] props : indData) {
+			try {
+				Indicator ind = new Indicator(Arrays.copyOfRange(props, 2, props.length));
+				ind.setCreditOrg(dao.getById(CreditOrg.class, Integer.parseInt(props[0])));
+				ind.setBill(dao.getById(Bill.class, Integer.parseInt(props[1])));
+				dao.save(ind);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.print("Завершена передача показателей!");
+	}
+
+	/**
+	 * Получить файл по имени
+	 * 
+	 * @param files    файлы
+	 * @param fileName имя искомого
+	 * @return файл
+	 */
+	private File getFile(File[] files, String fileName) {
+		for (File file : files) {
+			String name = file.getName().substring(0, file.getName().lastIndexOf('.'));
+			if (fileName.equalsIgnoreCase(name)) {
+				return file;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Получить данные из файла
+	 * 
+	 * @param file файл
+	 * @return данные
+	 */
+	private LinkedList<String[]> getData(File file) {
+		if (file == null) {
+			return null;
+		}
+		return ReportFactory.getReport(file.getAbsolutePath()).getRows();
 	}
 
 	@Override
@@ -137,14 +168,15 @@ public class Service implements IService {
 	 */
 	public static File[] unpackZip(String filePath, String unpackPath) {
 		File zipFile = new File(filePath);
-		if ((!zipFile.exists()) || (unpackPath == null) || (unpackPath.isEmpty())) {
+		if (!filePath.toLowerCase().endsWith(".zip") || (!zipFile.exists()) || (unpackPath == null)
+				|| (unpackPath.isEmpty())) {
 			return null;
 		}
 
 		File unpackDir = new File(unpackPath);
 		unpackDir.mkdirs();
 		List<File> unpackFiles = new ArrayList<File>();
-		try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFile))) {
+		try (ZipInputStream zip = new ZipInputStream(new FileInputStream(zipFile), Charset.forName("CP866"))) {
 
 			ZipEntry entry;
 			while ((entry = zip.getNextEntry()) != null) {
