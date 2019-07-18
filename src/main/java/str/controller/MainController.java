@@ -30,6 +30,10 @@ public class MainController {
 		IReport rep = ReportFactory.getReport("D:\\Work\\test.xlsx");
 		LinkedList<String[]> list = rep.getRows();
 
+		rep = ReportFactory.getReport("D:\\Test\\test123.xls");
+		rep.addRows(list);
+		rep.write();
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("main");
 		modelAndView.addObject("name", "Главная страница");

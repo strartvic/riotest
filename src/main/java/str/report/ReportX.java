@@ -12,6 +12,8 @@ import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ReportX implements IReport {
@@ -33,6 +35,7 @@ public class ReportX implements IReport {
 			file.createNewFile();
 			workbook = new XSSFWorkbook();
 			workbook.createSheet();
+			return;
 		}
 
 		FileInputStream is = new FileInputStream(file);
@@ -79,5 +82,20 @@ public class ReportX implements IReport {
 		}
 
 		return rows;
+	}
+
+	@Override
+	public void addRows(LinkedList<String[]> values) {
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		int i = 0;
+		for (String[] cells : values) {
+			XSSFRow row = sheet.createRow(i);
+			int j = 0;
+			for (String cell : cells) {
+				row.createCell(j).setCellValue(cell);
+				j++;
+			}
+			i++;
+		}
 	}
 }

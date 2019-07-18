@@ -9,6 +9,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.ss.usermodel.Cell;
@@ -35,6 +37,7 @@ public class Report implements IReport {
 			file.createNewFile();
 			workbook = new HSSFWorkbook();
 			workbook.createSheet();
+			return;
 		}
 
 		POIFSFileSystem fs = new POIFSFileSystem(new FileInputStream(file));
@@ -43,10 +46,8 @@ public class Report implements IReport {
 
 	@Override
 	public void write() {
-		try {
-			FileOutputStream fileOut = new FileOutputStream(file);
+		try (FileOutputStream fileOut = new FileOutputStream(file)) {
 			workbook.write(fileOut);
-			fileOut.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -79,6 +80,21 @@ public class Report implements IReport {
 		}
 
 		return rows;
+	}
+
+	@Override
+	public void addRows(LinkedList<String[]> values) {
+		HSSFSheet sheet = workbook.getSheetAt(0);
+		int i = 0;
+		for (String[] cells : values) {
+			HSSFRow row = sheet.createRow(i);
+			int j = 0;
+			for (String cell : cells) {
+				row.createCell(j).setCellValue(cell);
+				j++;
+			}
+			i++;
+		}
 	}
 
 }
