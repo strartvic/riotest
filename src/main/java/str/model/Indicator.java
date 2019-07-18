@@ -209,4 +209,52 @@ public class Indicator {
 		this.bill = bill;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
+	public Integer getIncomingBalanceOther() {
+		return incomingBalanceOther;
+	}
+
+	public Integer getIncomingBalanceTotal() {
+		return incomingBalanceTotal;
+	}
+
+	public Integer getOutcomingBalanceRub() {
+		return outcomingBalanceRub;
+	}
+
+	public Integer getOutcomingBalanceOther() {
+		return outcomingBalanceOther;
+	}
+
+	public Integer getOutcomingBalanceTotal() {
+		return outcomingBalanceTotal;
+	}
+
+	public Integer getTurnoverActiveRub() {
+		return turnoverActiveRub;
+	}
+
+	public Integer getTurnoverActiveOther() {
+		return turnoverActiveOther;
+	}
+
+	public Integer getTurnoverActiveTotal() {
+		return turnoverActiveTotal;
+	}
+
+	public Integer getTurnoverPassiveRub() {
+		return turnoverPassiveRub;
+	}
+
+	public Integer getTurnoverPassiveOther() {
+		return turnoverPassiveOther;
+	}
+
+	public Integer getTurnoverPassiveTotal() {
+		return turnoverPassiveTotal;
+	}
+
 }

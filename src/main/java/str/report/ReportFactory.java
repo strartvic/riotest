@@ -22,6 +22,7 @@ public class ReportFactory {
 			}
 			return null;
 		} catch (IOException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

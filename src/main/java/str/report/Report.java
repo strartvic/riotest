@@ -58,7 +58,6 @@ public class Report implements IReport {
 		Iterator<Row> iter = workbook.getSheetAt(0).rowIterator();
 		LinkedList<String[]> rows = new LinkedList<String[]>();
 
-		iter.next();
 		while (iter.hasNext()) {
 			Row row = iter.next();
 			Iterator<Cell> iterCell = row.cellIterator();

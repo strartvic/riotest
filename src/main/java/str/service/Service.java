@@ -128,7 +128,9 @@ public class Service implements IService {
 		if (file == null) {
 			return null;
 		}
-		return ReportFactory.getReport(file.getAbsolutePath()).getRows();
+		LinkedList<String[]> list = ReportFactory.getReport(file.getAbsolutePath()).getRows();
+		list.removeFirst();
+		return list;
 	}
 
 	@Override
