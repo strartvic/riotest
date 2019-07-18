@@ -1,4 +1,4 @@
-package str.model;
+package str.report;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +15,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 
-public class Report {
+public class Report implements IReport {
 
 	/**
 	 * Файл отчета
@@ -29,7 +29,9 @@ public class Report {
 
 	public Report(String filePath) throws IOException {
 		this.file = new File(filePath);
+
 		if (!file.exists()) {
+			file.getParentFile().mkdirs();
 			file.createNewFile();
 			workbook = new HSSFWorkbook();
 			workbook.createSheet();
@@ -39,9 +41,7 @@ public class Report {
 		workbook = new HSSFWorkbook(fs);
 	}
 
-	/**
-	 * Запись файла
-	 */
+	@Override
 	public void write() {
 		try {
 			FileOutputStream fileOut = new FileOutputStream(file);
@@ -52,20 +52,7 @@ public class Report {
 		}
 	}
 
-	/**
-	 * Получить книгу
-	 * 
-	 * @return
-	 */
-	public HSSFWorkbook getWorkbook() {
-		return workbook;
-	}
-
-	/**
-	 * Получить значения всех строк
-	 * 
-	 * @return значения строк
-	 */
+	@Override
 	public LinkedList<String[]> getRows() {
 		Iterator<Row> iter = workbook.getSheetAt(0).rowIterator();
 		LinkedList<String[]> rows = new LinkedList<String[]>();

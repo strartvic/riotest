@@ -17,7 +17,7 @@ import str.dao.IDao;
 import str.model.Bill;
 import str.model.CreditOrg;
 import str.model.Indicator;
-import str.model.Report;
+import str.report.Report;
 
 @org.springframework.stereotype.Service
 public class Service implements IService {
