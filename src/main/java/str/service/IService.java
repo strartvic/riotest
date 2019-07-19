@@ -5,6 +5,7 @@ import java.util.List;
 
 import str.model.Bill;
 import str.model.CreditOrg;
+import str.model.Indicator;
 
 public interface IService {
 
@@ -45,11 +46,28 @@ public interface IService {
 	<T> T getById(Class<?> T, Integer id);
 
 	/**
+	 * Получить объекты по id
+	 * 
+	 * @param <T> параметр
+	 * @param T   класс
+	 * @param id  массив id
+	 * @return список объектов
+	 */
+	<T> LinkedList<T> getById(Class<?> T, int[] id);
+
+	/**
 	 * Сохранить данные в БД из архива
 	 * 
 	 * @param zipFile путь до архива
 	 */
 	void save(String zipFile);
 
-	void printReport(String dirPath, LinkedList<CreditOrg> orgs, LinkedList<Bill> bills);
+	/**
+	 * Получить общие показатели
+	 * 
+	 * @param orgs  организации
+	 * @param bills счета
+	 * @return показатели
+	 */
+	LinkedList<Indicator> getRetainIndicators(List<CreditOrg> orgs, List<Bill> bills);
 }

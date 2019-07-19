@@ -18,7 +18,6 @@ import str.dao.IDao;
 import str.model.Bill;
 import str.model.CreditOrg;
 import str.model.Indicator;
-import str.report.Report;
 import str.report.ReportFactory;
 
 @org.springframework.stereotype.Service
@@ -54,6 +53,15 @@ public class Service implements IService {
 	@Override
 	public <T> T getById(Class<?> T, Integer id) {
 		return dao.getById(T, id);
+	}
+
+	@Override
+	public <T> LinkedList<T> getById(Class<?> T, int[] indexes) {
+		LinkedList<T> list = new LinkedList<T>();
+		for (int id : indexes) {
+			list.add(dao.getById(T, id));
+		}
+		return list;
 	}
 
 	@Override
@@ -134,11 +142,7 @@ public class Service implements IService {
 	}
 
 	@Override
-	public void printReport(String dirPath, LinkedList<CreditOrg> orgs, LinkedList<Bill> bills) {
-		if (dirPath.isEmpty() || orgs.isEmpty()) {
-			return;
-		}
-
+	public LinkedList<Indicator> getRetainIndicators(List<CreditOrg> orgs, List<Bill> bills) {
 		LinkedList<Indicator> inds1 = new LinkedList<Indicator>();
 		LinkedList<Indicator> inds2 = new LinkedList<Indicator>();
 
@@ -154,12 +158,7 @@ public class Service implements IService {
 			inds2.retainAll(inds1);
 		}
 
-		try {
-			Report rep = new Report("D:\\Отчет.xls");
-		} catch (IOException e) {
-			System.out.print("Ошибка создания отчета!");
-			e.printStackTrace();
-		}
+		return inds1;
 	}
 
 	/**
@@ -208,4 +207,5 @@ public class Service implements IService {
 			return null;
 		}
 	}
+
 }

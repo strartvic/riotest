@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "indicators")
@@ -103,6 +104,28 @@ public class Indicator {
 	 */
 	@Column(name = "turnover_passive_total")
 	private Integer turnoverPassiveTotal;
+
+	@Transient
+	private static String[] inds;
+
+	static {
+		inds = new String[12];
+		inds[0] = "Входящие остатки (руб)";
+		inds[1] = "Входящие остатки (другое)";
+		inds[2] = "Входящие остатки (всего)";
+
+		inds[3] = "Обороты активные (руб)";
+		inds[4] = "Обороты активные (другое)";
+		inds[5] = "Обороты активные (всего)";
+
+		inds[6] = "Обороты пассивные (руб)";
+		inds[7] = "Обороты пассивные (другое)";
+		inds[8] = "Обороты пассивные (всего)";
+
+		inds[9] = "Исходящие остатки (руб)";
+		inds[10] = "Исходящие остатки (другое)";
+		inds[11] = "Исходящие остатки (всего)";
+	}
 
 	public Indicator() {
 
@@ -257,4 +280,55 @@ public class Indicator {
 		return turnoverPassiveTotal;
 	}
 
+	/**
+	 * Получить показатель
+	 * 
+	 * @param name имя показателя
+	 * @return значение
+	 */
+	public Integer getProperty(String name) {
+		int index = -1;
+		for (int i = 0; i < inds.length; i++) {
+			if (name.equalsIgnoreCase(inds[i])) {
+				index = i;
+				break;
+			}
+		}
+		switch (index) {
+		case 0:
+			return incomingBalanceRub;
+		case 1:
+			return incomingBalanceOther;
+		case 2:
+			return incomingBalanceTotal;
+		case 3:
+			return turnoverActiveRub;
+		case 4:
+			return turnoverActiveOther;
+		case 5:
+			return turnoverActiveTotal;
+		case 6:
+			return turnoverPassiveRub;
+		case 7:
+			return turnoverPassiveOther;
+		case 8:
+			return turnoverPassiveTotal;
+		case 9:
+			return outcomingBalanceRub;
+		case 10:
+			return outcomingBalanceOther;
+		case 11:
+			return outcomingBalanceTotal;
+		}
+		return 0;
+	}
+
+	/**
+	 * Получить имена показателей
+	 * 
+	 * @return показатели
+	 */
+	public static String[] getNamesProperties() {
+		return inds;
+	}
 }

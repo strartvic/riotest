@@ -24,22 +24,49 @@ tr:nth-child(even) {
 </style>
 </head>
 <body>
-    <h1>${name}</h1>
+    <h1>Формирование отчета</h1>
 </body>
 
 <div>
-   <table border="1">
-      <tr>
-         <th>Точки проката</th>
-         <th>Действия</th>
-      </tr>
+<form action="${pageContext.request.contextPath}/" method="POST" >
+<p> Выберете организации: </p>
+<p>
+   <select size="5" multiple name="orgs[]" required>
       <c:forEach  items="${orgs}" var ="org">
-         <tr>
-             <td><a href="${pageContext.request.contextPath}/point-page/${point.name}">${org.name}</a></td>
-             <td><a href="${pageContext.request.contextPath}/delete-point/${point.name}">Удалить</a></td>
-         </tr>
-      </c:forEach> 
-   </table>
+         <option value="${org.id}">${org.name}</option>
+      </c:forEach>
+   </select></p>
+   
+<p> Выберете счета: </p>
+<p> 
+   <select size="5" multiple name="bills[]" required>
+      <c:forEach  items="${bills}" var ="bill">
+         <option value="${bill.id}">${bill.name}</option>
+      </c:forEach>
+   </select></p>
+
+
+<p> Выберете показатели: </p>
+<p> 
+   <select size="5" multiple name="inds[]" required>
+      <c:forEach  items="${inds}" var ="ind">
+         <option value="${ind}">${ind}</option>
+      </c:forEach>
+   </select></p>
+
+
+<p> 
+   <label>Каталог отчета</label> 
+   <input type="text" name="dirPath" value="D:"> 
+   <input type="submit" value="Создать отчет">
+</p>
+</form> 
+
+<form enctype="multipart/form-data" method="post">
+   <p><input type="file" name="f" value="D:">
+   <input type="submit" value="Отправить"></p>
+</form> 
 </div>
+
  
 </html>

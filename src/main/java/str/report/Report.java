@@ -96,4 +96,15 @@ public class Report implements IReport {
 		}
 	}
 
+	@Override
+	public void addRow(String[] values) {
+		HSSFSheet sheet = workbook.getSheetAt(0);
+		HSSFRow row = sheet.createRow(sheet.getLastRowNum() + 1);
+		int j = 0;
+		for (String cell : values) {
+			row.createCell(j).setCellValue(cell);
+			j++;
+		}
+	}
+
 }

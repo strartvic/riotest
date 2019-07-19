@@ -98,4 +98,15 @@ public class ReportX implements IReport {
 			i++;
 		}
 	}
+
+	@Override
+	public void addRow(String[] values) {
+		XSSFSheet sheet = workbook.getSheetAt(0);
+		XSSFRow row = sheet.createRow(sheet.getLastRowNum());
+		int j = 0;
+		for (String cell : values) {
+			row.createCell(j).setCellValue(cell);
+			j++;
+		}
+	}
 }

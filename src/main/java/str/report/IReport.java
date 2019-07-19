@@ -23,4 +23,11 @@ public interface IReport {
 	 */
 	void addRows(LinkedList<String[]> values);
 
+	/**
+	 * Добавить строку
+	 * 
+	 * @param values значения
+	 */
+	void addRow(String[] values);
+
 }
