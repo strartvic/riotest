@@ -6,9 +6,11 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class CreditOrg {
+@Table(name = "bills")
+public class Bill {
 
 	/**
 	 * Уникальный номер
@@ -24,13 +26,13 @@ public class CreditOrg {
 	/**
 	 * Показатели
 	 */
-	@OneToMany(mappedBy = "creditOrg", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Indicator> indicators;
 
 	/**
 	 * Пустой конструктор
 	 */
-	public CreditOrg() {
+	public Bill() {
 
 	}
 
@@ -40,7 +42,7 @@ public class CreditOrg {
 	 * @param id   уник номер
 	 * @param name наименование
 	 */
-	public CreditOrg(int id, String name) {
+	public Bill(int id, String name) {
 		this.id = id;
 		this.name = name;
 	}
@@ -51,7 +53,7 @@ public class CreditOrg {
 	 * @param properties свойства в виде строках
 	 * @throws Exception
 	 */
-	public CreditOrg(String[] properties) throws Exception {
+	public Bill(String[] properties) throws Exception {
 		if (properties.length > 2) {
 			throw new Exception("Ошибка создания объекта организации. Неверный формат входных данных!");
 		}
@@ -97,7 +99,7 @@ public class CreditOrg {
 	}
 
 	public void add(Indicator indicator) {
-		indicator.setCreditOrg(this);
+		indicator.setBill(this);
 		this.indicators.add(indicator);
 	}
 

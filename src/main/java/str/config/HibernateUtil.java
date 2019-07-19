@@ -10,7 +10,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Environment;
 
+import str.model.Bill;
 import str.model.CreditOrg;
+import str.model.Indicator;
 
 public class HibernateUtil {
 	private static StandardServiceRegistry registry;
@@ -27,7 +29,7 @@ public class HibernateUtil {
 				// DIALECT и кусок URL легко гуглятся под любую базу
 				Map<String, String> settings = new HashMap<>();
 				settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
-				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/carrental");
+				settings.put(Environment.URL, "jdbc:mysql://localhost:3306/riotest");
 				settings.put(Environment.USER, "root");
 				settings.put(Environment.PASS, "1111");
 				settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQLDialect");
@@ -38,6 +40,8 @@ public class HibernateUtil {
 
 				MetadataSources sources = new MetadataSources(registry);
 				sources.addAnnotatedClass(CreditOrg.class);
+				sources.addAnnotatedClass(Indicator.class);
+				sources.addAnnotatedClass(Bill.class);
 				Metadata metadata = sources.getMetadataBuilder().build();
 
 				sessionFactory = metadata.getSessionFactoryBuilder().build();
