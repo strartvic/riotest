@@ -62,9 +62,9 @@ tr:nth-child(even) {
 </p>
 </form> 
 
-<form enctype="multipart/form-data" method="post">
-   <p><input type="file" name="f" value="D:">
-   <input type="submit" value="Отправить"></p>
+<form action="${pageContext.request.contextPath}/saveBD" method="POST">
+   <p><input type="file" name="filePath" value="D:" accept="application/zip">
+   <input type="submit" value="Передать данные в базу данных"></p>
 </form> 
 </div>
 

@@ -66,6 +66,9 @@ public class Service implements IService {
 
 	@Override
 	public void save(String zipFile) {
+		if (zipFile.isEmpty() || !zipFile.contains("\\")) {
+			return;
+		}
 		File[] files = unpackZip(zipFile, zipFile.substring(0, zipFile.lastIndexOf("\\")));
 		if (files == null) {
 			return;

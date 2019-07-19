@@ -73,4 +73,10 @@ public class MainController {
 
 		return "redirect:/";
 	}
+
+	@RequestMapping(value = "/saveBD", method = RequestMethod.POST)
+	public String saveBD(@RequestParam(value = "filePath") String filePath) {
+		service.save(filePath);
+		return "redirect:/";
+	}
 }
