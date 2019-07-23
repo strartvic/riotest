@@ -158,7 +158,7 @@ public class Service implements IService {
 		}
 
 		if (!inds2.isEmpty()) {
-			inds2.retainAll(inds1);
+			inds1.retainAll(inds2);
 		}
 
 		return inds1;
